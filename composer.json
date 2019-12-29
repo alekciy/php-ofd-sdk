@@ -1,0 +1,38 @@
+{
+    "name": "alekciy/php-ofd-sdk",
+    "description": "Библиотека работает с API операторов фискальных данных (ОФД)",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Сундуков Алексей",
+            "email": "public-mail@alekciy.ru"
+        }
+    ],
+    "require": {
+        "php": "~7.0",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^6.5",
+        "vlucas/valitron": "^1.4"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.9.2",
+        "phpunit/phpunit": "^6.5"
+    },
+    "config": {
+        "platform": {
+            "php": "7.0"
+        },
+        "sort-packages": true
+    },
+    "support": {
+        "issues": "https://github.com/alekciy/php-ofd-sdk/issues",
+        "source": "https://github.com/alekciy/php-ofd-sdk"
+    },
+    "autoload": {
+        "psr-4": {
+            "alekciy\\ofd\\": "src/"
+        }
+    }
+}
