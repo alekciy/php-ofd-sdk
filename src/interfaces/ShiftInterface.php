@@ -8,7 +8,7 @@ namespace alekciy\ofd\interfaces;
 interface ShiftInterface
 {
 	/**
-	 * Номер фискального регистратора (ФН).
+	 * Номер фискального накопителя (ФН).
 	 *
 	 * @return string
 	 */

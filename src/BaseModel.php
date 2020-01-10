@@ -2,7 +2,6 @@
 
 namespace alekciy\ofd;
 
-use alekciy\ofd\providers\taxcom\Model\CashDeskShort;
 use Exception;
 use InvalidArgumentException;
 use Valitron\Validator;

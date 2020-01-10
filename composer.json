@@ -1,6 +1,14 @@
 {
     "name": "alekciy/php-ofd-sdk",
     "description": "Библиотека работает с API операторов фискальных данных (ОФД)",
+    "keywords": [
+        "ОФД",
+        "оператор фискальных данных",
+        "ФФД",
+        "формат фискальных документов",
+        "taxcom.ru",
+        "SDK"
+    ],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -32,6 +40,7 @@
     },
     "autoload": {
         "psr-4": {
+            "alekciy\\ffd\\": "src/ffd/",
             "alekciy\\ofd\\": "src/"
         }
     }

@@ -3,8 +3,9 @@
 namespace alekciy\ofd\providers\taxcom\Model;
 
 use alekciy\ofd\BaseModel;
+use alekciy\ofd\interfaces\DocumentInterface;
 
-class Document extends BaseModel
+class Document extends BaseModel implements DocumentInterface
 {
 	/** @var string Признак расчета */
 	public $accountingType = '';
@@ -131,5 +132,37 @@ class Document extends BaseModel
 				self::ACCOUNTING_EXPENDITURE_RETURN,
 			]]],
 		];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getFnFactoryNumber(): string
+	{
+		return $this->fnFactoryNumber;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getNumber(): int
+	{
+		return $this->fdNumber;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getCreatAt(): string
+	{
+		return $this->dateTime;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getFpd(): string
+	{
+		return $this->fpd;
 	}
 }
