@@ -81,7 +81,14 @@ class Client
 	{
 		$response = $this->sendRequest($endpoint);
 		$body = Json::decode($response->getBody()->getContents(), true);
+		$errorCode = $body['code'] ?? 0;
 
+		if (!empty($errorCode)) {
+			throw new Exception(
+				get_class($endpoint) . ' ошибка: ' . ($body['message'] ?? $body['description']),
+				$errorCode
+			);
+		}
 		return $body;
 	}
 }

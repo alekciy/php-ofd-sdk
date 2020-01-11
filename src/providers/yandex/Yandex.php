@@ -6,6 +6,7 @@ use alekciy\ofd\interfaces\CashDeskInterface;
 use alekciy\ofd\interfaces\OutletInterface;
 use alekciy\ofd\interfaces\ProviderInterface;
 use alekciy\ofd\interfaces\ShiftInterface;
+use alekciy\ofd\providers\yandex\Model\Outlet;
 use alekciy\ofd\providers\yandex\Request\OutletList;
 use DateTime;
 use Exception;
@@ -37,9 +38,14 @@ class Yandex implements ProviderInterface
 	 */
 	private function getAllItemList(RequestPage $endpoint): array
 	{
-		$response = $this->client->request($endpoint);
 		$result = [];
-		// TODO
+		do {
+			$response = $this->client->request($endpoint);
+			foreach ($response as $record) {
+				$result[] = $record;
+			}
+			++$endpoint->pageNumber;
+		} while (!empty($response));
 		return $result;
 	}
 
@@ -54,7 +60,10 @@ class Yandex implements ProviderInterface
 	{
 		$result = [];
 		$responseOutletList = $this->getAllItemList(new OutletList([]));
-		// TODO
+		foreach ($responseOutletList as $responseOutlet) {
+			$outlet = new Outlet($responseOutlet);
+			$result[$outlet->getId()] = $outlet;
+		}
 		return $result;
 	}
 
