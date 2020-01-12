@@ -27,18 +27,26 @@ class Client
 	/** @var string Версия клиента */
 	private $version = '0.1.0';
 
+	/** @var int Номер запроса */
+	static private $requestNumber = 0;
+
+	/** @var string Директория куда будет сохраняться тело ответа */
+	static private $bodyStorageDir = '';
+
 	/**
 	 * @param Credentials $credentials Реквизиты доступа.
 	 * @param string $agreementNumber  Номер договора.
 	 * @param string $sessionToken     Сессионный токен доступа.
+	 * @param array $clientConfig      Дополнительную настройки для Guzzle клиента.
 	 * @throws Exception
 	 */
-	public function __construct(Credentials $credentials, string $agreementNumber = '', string $sessionToken = '')
+	public function __construct(Credentials $credentials, string $agreementNumber = '', string $sessionToken = '', array $clientConfig = [])
 	{
 		$this->credentials = $credentials;
 		$this->agreementNumber = $agreementNumber;
 		$this->sessionToken = $sessionToken;
-		$this->httpClient = new httpClient([
+
+		$httpClientConfig = [
 			'base_uri' => 'https://' . $credentials->domain,
 			'defaults' => [
 				'headers' => [
@@ -46,7 +54,26 @@ class Client
 					'Accept' => 'application/json',
 				],
 			],
-		]);
+		];
+		$this->httpClient = new httpClient(array_merge($clientConfig, $httpClientConfig));
+	}
+
+	/**
+	 * Задает директорию куда будут сохраняться тела всех ответов. Метод полезен при создании фикстур для тестов.
+	 *
+	 * @param string $dirPath
+	 * @return void
+	 * @throws Exception
+	 */
+	static public function setBodyStorageDir(string $dirPath)
+	{
+		$absDirPath = realpath($dirPath);
+		if ($absDirPath === false
+			|| !is_writable($absDirPath)
+		) {
+			throw new Exception("Директория «{$absDirPath}» недоступна для записи");
+		}
+		self::$bodyStorageDir = $absDirPath;
 	}
 
 	/**
@@ -90,7 +117,7 @@ class Client
 	 */
 	protected function sendRequest(Request $endpoint): ResponseInterface
 	{
-		return $this->httpClient->request(
+		$response =  $this->httpClient->request(
 			$endpoint->method,
 			$endpoint->path,
 			[
@@ -106,6 +133,15 @@ class Client
 				'json' => $endpoint->getBody(),
 			]
 		);
+		++self::$requestNumber;
+		if (!empty(self::$bodyStorageDir)) {
+			$fileName = sprintf('%05d_%s', self::$requestNumber, str_replace('/', '_', $endpoint->path) . '.json');
+			$body = (string) $response->getBody()->getContents();
+			$response->getBody()->rewind();
+			file_put_contents(self::$bodyStorageDir . '/' . $fileName, $body . PHP_EOL);
+		}
+
+		return $response;
 	}
 
 	/**

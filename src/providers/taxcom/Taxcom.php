@@ -139,7 +139,7 @@ class Taxcom implements ProviderInterface
 		$start->setTimezone($tz);
 		$end->setTimezone($tz);
 
-		$cashDeskList = $cashDesk instanceof CashDesk
+		$cashDeskList = $cashDesk instanceof CashDeskInterface
 			? [$cashDesk]
 			: $this->getCashDeskList();
 		foreach ($cashDeskList as $cashDesk) {
@@ -194,13 +194,13 @@ class Taxcom implements ProviderInterface
 	}
 
 	/**
-	 * @param Document $document
+	 * @param DocumentInterface $document
 	 * @return Registration|Open|Check|Strict|Close|FnClose|Confirmation|RegistrationChange|State|StrictCorrect
 	 * @throws GuzzleException
 	 * @throws ReflectionException
 	 * @throws Exception
 	 */
-	public function getDocumentTag(Document $document): ffdDocument
+	public function getDocumentTag(DocumentInterface $document): ffdDocument
 	{
 		$documentTagList = $this->getDocumentTagList($document);
 		return reset($documentTagList);

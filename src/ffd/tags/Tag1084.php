@@ -13,7 +13,7 @@ use Exception;
 class Tag1084 extends BaseTag
 {
 	/** @var array */
-	public $value = '';
+	public $value = [];
 
 	/**
 	 * @inheritDoc

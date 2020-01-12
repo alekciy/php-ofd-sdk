@@ -21,7 +21,7 @@ interface ProviderInterface
 	 * Вернет список касс относящихся к торговой точке $outlet. Если торговая точка не заданна, то все кассы.
 	 *
 	 * @param OutletInterface|null $outlet
-	 * @return CashDesk[]
+	 * @return CashDeskInterface[]
 	 */
 	public function getCashDeskList(OutletInterface $outlet = null): array;
 
@@ -32,7 +32,7 @@ interface ProviderInterface
 	 * @param CashDeskInterface|null $cashDesk
 	 * @param DateTime|null $start
 	 * @param DateTime|null $end
-	 * @return Shift[]
+	 * @return ShiftInterface[]
 	 */
 	public function getShiftList(CashDeskInterface $cashDesk = null, DateTime $start = null, DateTime $end = null): array;
 

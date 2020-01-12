@@ -1,0 +1,38 @@
+{
+    "reportDate": "2020-01-12T11:22:29",
+    "counts": {
+        "recordCount": 4,
+        "recordFilteredCount": 4,
+        "recordInResponceCount": 4
+    },
+    "records": [
+        {
+            "fnFactoryNumber": "4444444444444444",
+            "shiftNumber": 84,
+            "openDateTime": "2020-01-06T10:28:00",
+            "closeDateTime": "2020-01-06T16:07:00",
+            "receiptCount": 4
+        },
+        {
+            "fnFactoryNumber": "4444444444444444",
+            "shiftNumber": 85,
+            "openDateTime": "2020-01-09T11:06:00",
+            "closeDateTime": "2020-01-09T18:58:00",
+            "receiptCount": 29
+        },
+        {
+            "fnFactoryNumber": "4444444444444444",
+            "shiftNumber": 86,
+            "openDateTime": "2020-01-10T10:25:00",
+            "closeDateTime": "2020-01-10T18:53:00",
+            "receiptCount": 62
+        },
+        {
+            "fnFactoryNumber": "4444444444444444",
+            "shiftNumber": 87,
+            "openDateTime": "2020-01-11T10:52:00",
+            "closeDateTime": "2020-01-11T17:54:00",
+            "receiptCount": 59
+        }
+    ]
+}
