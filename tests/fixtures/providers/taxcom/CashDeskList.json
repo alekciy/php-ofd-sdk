@@ -1,0 +1,24 @@
+{
+    "reportDate": "2020-01-12T09:14:34",
+    "counts": {
+        "recordCount": 1,
+        "recordFilteredCount": 1,
+        "recordInResponceCount": 1
+    },
+    "outlet": {
+        "id": "56529ad6-a488-4fef-b7da-555555555555",
+        "name": "443077, г.Самара, ул.Елизарова, 111111",
+        "code": null,
+        "address": "443077, г.Самара, ул.Елизарова, 111111"
+    },
+    "records": [
+        {
+            "name": "1111111111111111",
+            "kktRegNumber": "2222222222222222",
+            "kktFactoryNumber": "3333333333333333",
+            "fnFactoryNumber": "4444444444444444",
+            "cashdeskState": "Active",
+            "problemIndicator": "OK"
+        }
+    ]
+}

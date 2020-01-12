@@ -43,5 +43,8 @@
             "alekciy\\ffd\\": "src/ffd/",
             "alekciy\\ofd\\": "src/"
         }
+    },
+    "scripts": {
+        "test-unit": "./vendor/bin/phpunit --colors=always"
     }
 }
