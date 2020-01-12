@@ -165,4 +165,12 @@ class Document extends BaseModel implements DocumentInterface
 	{
 		return $this->fpd;
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function getPropertyInitMap(): array
+	{
+		return [];
+	}
 }

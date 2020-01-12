@@ -18,12 +18,43 @@ abstract class BaseModel
 	 */
 	public function __construct(array $init)
 	{
+		$propertyMap = $this->getPropertyInitMap();
 		foreach ($init as $propertyName => $propertyValue) {
+			if (isset($propertyMap[$propertyName])) {
+				$propertyName = $propertyMap[$propertyName];
+			}
+
 			if (property_exists($this, $propertyName)) {
 				$this->$propertyName = $propertyValue;
+			} else {
+				$propertyName = self::camelize($propertyName);
+				if (property_exists($this, $propertyName)) {
+					$this->$propertyName = $propertyValue;
+				}
 			}
 		}
 		$this->validate();
+	}
+
+	/**
+	 * В потомках метод должен возращать карту преобразований имен при инициализации (ключ) и свойств объекта (значение).
+	 *
+	 * @return array
+	 */
+	abstract protected function getPropertyInitMap(): array;
+
+	/**
+	 * Конвертировать строку $str (представленную в utf8 кодировке) в camelCase.
+	 *
+	 * @param $str
+	 * @return string
+	 */
+	static public function camelize($str): string
+	{
+		$str = mb_convert_case($str, MB_CASE_TITLE, 'utf8');
+		$str = preg_replace('~[\-_\s]~ui', '', $str);
+		$firstLetter = mb_substr($str, 0, 1, 'utf8');
+		return mb_convert_case($firstLetter, MB_CASE_LOWER, 'utf8') . mb_substr($str, 1, mb_strlen($str)-1, 'utf8');
 	}
 
 	/**

@@ -6,7 +6,9 @@ use alekciy\ofd\interfaces\CashDeskInterface;
 use alekciy\ofd\interfaces\OutletInterface;
 use alekciy\ofd\interfaces\ProviderInterface;
 use alekciy\ofd\interfaces\ShiftInterface;
+use alekciy\ofd\providers\yandex\Model\CashDesk;
 use alekciy\ofd\providers\yandex\Model\Outlet;
+use alekciy\ofd\providers\yandex\Request\CashDeskList;
 use alekciy\ofd\providers\yandex\Request\OutletList;
 use DateTime;
 use Exception;
@@ -69,10 +71,25 @@ class Yandex implements ProviderInterface
 
 	/**
 	 * @inheritDoc
+	 *
+	 * @throws GuzzleException
+	 * @throws Exception
 	 */
 	public function getCashDeskList(OutletInterface $outlet = null): array
 	{
-		// TODO: Implement getCashDeskList() method.
+		$result = [];
+		$outletList = $outlet instanceof OutletInterface
+			? [$outlet]
+			: $this->getOutletList();
+		foreach ($outletList as $outlet) {
+			$responseCashDeskList = $this->getAllItemList(new CashDeskList([
+				'outletId' => $outlet->getId(),
+			]));
+			foreach ($responseCashDeskList as $responseCashDesk) {
+				$result[] = new CashDesk($responseCashDesk);
+			}
+		}
+		return $result;
 	}
 
 	/**

@@ -22,12 +22,14 @@ class Client
 
 	/**
 	 * @param Credentials $credentials Реквизиты доступа.
+	 * @param array $clientConfig      Дополнительную настройки для Guzzle клиента.
 	 * @throws Exception
 	 */
-	public function __construct(Credentials $credentials)
+	public function __construct(Credentials $credentials, array $clientConfig = [])
 	{
 		$this->credentials = $credentials;
-		$this->httpClient = new httpClient([
+
+		$httpClientConfig = [
 			'base_uri' => 'https://' . $credentials->domain,
 			'defaults' => [
 				'headers' => [
@@ -37,7 +39,8 @@ class Client
 					'X-OFD-Key'    => $credentials->authorizationKey,
 				],
 			],
-		]);
+		];
+		$this->httpClient = new httpClient(array_merge($clientConfig, $httpClientConfig));
 	}
 
 	/**
