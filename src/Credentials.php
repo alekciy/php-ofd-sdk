@@ -46,7 +46,7 @@ abstract class Credentials
 	public function validate($lang = 'ru')
 	{
 		Validator::lang($lang);
-		$validator = new Validator((array) $this);
+		$validator = new Validator(get_object_vars($this));
 		// Задаем правила валидации
 		$validator->mapFieldRules('domain', ['required']);
 		// Правила валидации дочерних классов

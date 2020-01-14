@@ -10,7 +10,7 @@ use alekciy\ofd\providers\yandex\RequestPage;
 final class OutletList extends RequestPage
 {
 	public $method = 'GET';
-	public $path = '/v1/retail_points';
+	protected $path = '/v1/retail_points';
 
 	/**
 	 * @inheritDoc

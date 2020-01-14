@@ -93,6 +93,20 @@ class Yandex implements ProviderInterface
 	}
 
 	/**
+	 * Информация по кассе.
+	 *
+	 * @param int $id
+	 * @return CashDesk
+	 * @throws GuzzleException
+	 * @throws Exception
+	 */
+	public function getCashDesk(int $id): CashDesk
+	{
+		$responseCashDesk = $this->client->request(new Request\CashDesk(['id' => $id]));
+		return new CashDesk($responseCashDesk);
+	}
+
+	/**
 	 * @inheritDoc
 	 */
 	public function getShiftList(CashDeskInterface $cashDesk = null, DateTime $start = null, DateTime $end = null): array

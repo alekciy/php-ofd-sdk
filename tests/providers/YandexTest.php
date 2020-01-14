@@ -73,7 +73,6 @@ class YandexTest extends TestCase
 		return $outlet;
 	}
 
-
 	/**
 	 * Проверить получение списка касс для заданной торговой точки $outletList.
 	 *
@@ -95,6 +94,43 @@ class YandexTest extends TestCase
 
 		/** @var CashDesk $cashDesk */
 		$cashDesk = reset($cashDeskList);
+		$this->assertEquals('00000000381007926499', $cashDesk->getKktFactoryNumber());
+		$this->assertEquals('00000000381007926499', $cashDesk->kktFactoryNumber);
+		$this->assertEquals('00000000381007926499', $cashDesk->getName());
+		$this->assertEmpty($cashDesk->getKktRegNumber());
+		$this->assertEmpty($cashDesk->kktRegNumber);
+		$this->assertEquals('8710000100875131', $cashDesk->getFnFactoryNumber());
+		$this->assertEquals('8710000100875131', $cashDesk->fnFactoryNumber);
+		$this->assertEquals(728, $cashDesk->outletId);
+		$this->assertEquals(902, $cashDesk->id);
+		$this->assertEquals(587, $cashDesk->companyId);
+
+		return $cashDesk;
+	}
+
+	/**
+	 * Проверить получение информации по кассе.
+	 *
+	 * @test
+	 * @throws GuzzleException
+	 */
+	public function testGetCashDesk()
+	{
+		$this->mock->append(new Response(403, [], $this->fixtureList['CashDeskNotFound']));
+		$this->mock->append(new Response(200, [], $this->fixtureList['CashDesk']));
+
+		// Проверка негативного сценария: такой кассы нет
+		try {
+			$cashDesk = $this->provider->getCashDesk(-1);
+		} catch (Exception $e) {
+			$this->assertEquals(4, $e->getCode(), 'Код исключения должен совпадать с кодом ошибки API');
+		}
+		$this->assertFalse(isset($cashDesk), 'Запрос несуществующей кассы должен генерировать исключение');
+
+		// Проверка позитивного сценария
+		$cashDeskId = 902;
+		/** @var CashDesk $cashDesk */
+		$cashDesk = $this->provider->getCashDesk($cashDeskId);
 		$this->assertEquals('00000000381007926499', $cashDesk->getKktFactoryNumber());
 		$this->assertEquals('00000000381007926499', $cashDesk->kktFactoryNumber);
 		$this->assertEquals('00000000381007926499', $cashDesk->getName());

@@ -77,7 +77,7 @@ abstract class BaseModel
 	protected function validate($lang = 'ru')
 	{
 		Validator::lang($lang);
-		$validator = new Validator((array) $this);
+		$validator = new Validator(get_object_vars($this));
 		// Правила валидации дочерних классов
 		$validator->mapFieldsRules($this->getRuleList());
 		if (!$validator->validate()) {

@@ -10,7 +10,7 @@ use alekciy\ofd\Request;
 class DocumentInfo extends Request
 {
 	public $method = 'GET';
-	public $path = '/API/v2/DocumentInfo';
+	protected $path = '/API/v2/DocumentInfo';
 
 	/** @var string Заводской номер ФН */
 	public $fnFactoryNumber = '';

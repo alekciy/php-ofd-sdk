@@ -15,7 +15,7 @@ abstract class Request
 	public $method = '';
 
 	/** @var string Путь до документа */
-	public $path = '';
+	protected $path = '';
 
 	public $debug = false;
 
@@ -26,7 +26,7 @@ abstract class Request
 	public function __construct(array $init)
 	{
 		foreach ($init as $propertyName => $propertyValue) {
-			if (isset($this->$propertyName)) {
+			if (property_exists($this, $propertyName)) {
 				$this->$propertyName = $propertyValue;
 			}
 		}
@@ -65,7 +65,7 @@ abstract class Request
 	protected function validate($lang = 'ru')
 	{
 		Validator::lang($lang);
-		$validator = new Validator((array) $this);
+		$validator = new Validator(get_object_vars($this));
 		// Задаем правила валидации
 		$validator->mapFieldRules('method', [
 			'required',
@@ -78,7 +78,7 @@ abstract class Request
 		if (!$validator->validate()) {
 			$messageList = [];
 			foreach ($validator->errors() as  $propertyName => $errorList) {
-				$messageList[] = $propertyName . ': ' . implode(', ', $errorList);
+				$messageList[] = get_class($this) . '.' . $propertyName . ': ' . implode(', ', $errorList);
 			}
 			throw new Exception(implode('. ', $messageList));
 		}
@@ -120,5 +120,16 @@ abstract class Request
 			$result[$filter['query']] = $this->$propertyName;
 		}
 		return $result;
+	}
+
+	/**
+	 * Путь до документа. В потомках следует переопределить если путь представляет собой вычисляемую строку (например,
+	 * если там содержиться идентификатор).
+	 *
+	 * @return string
+	 */
+	public function getPath(): string
+	{
+		return $this->path;
 	}
 }

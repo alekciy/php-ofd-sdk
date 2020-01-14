@@ -55,7 +55,7 @@ class Client
 	{
 		return $this->httpClient->request(
 			$endpoint->method,
-			$endpoint->path,
+			$endpoint->getPath(),
 			[
 				'debug' => $endpoint->debug,
 				'exceptions' => false,
@@ -87,8 +87,11 @@ class Client
 		$errorCode = $body['code'] ?? 0;
 
 		if (!empty($errorCode)) {
-			throw new Exception(
-				get_class($endpoint) . ' ошибка: ' . ($body['message'] ?? $body['description']),
+			$msg = $body['message'] ?? $body['description'];
+			throw new Exception(sprintf('При запросе адреса %s возникла ошибка (status=%d): %s',
+				$endpoint->getPath(),
+				$response->getStatusCode(),
+				$msg),
 				$errorCode
 			);
 		}

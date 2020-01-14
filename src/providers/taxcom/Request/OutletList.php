@@ -11,7 +11,7 @@ use alekciy\ofd\providers\taxcom\Status;
 final class OutletList extends RequestPage
 {
 	public $method = 'GET';
-	public $path = '/API/v2/OutletList';
+	protected $path = '/API/v2/OutletList';
 
 	/** @var string Идентификатор */
 	public $id = '';

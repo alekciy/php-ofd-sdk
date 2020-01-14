@@ -7,7 +7,7 @@ use alekciy\ofd\Request;
 final class Login extends Request
 {
 	public $method = 'POST';
-	public $path = '/API/v2/Login';
+	protected $path = '/API/v2/Login';
 
 	/** @var string  Логин */
 	public $login = '';

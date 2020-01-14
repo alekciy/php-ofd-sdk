@@ -1,0 +1,5 @@
+{
+    "description": "К запрошенной кассе нет доступа или она не существует.",
+    "message": "Cash Register not found",
+    "code": 4
+}
