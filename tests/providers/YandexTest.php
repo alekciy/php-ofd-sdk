@@ -1,10 +1,14 @@
 <?php
 
+use alekciy\ofd\interfaces\CashDeskInterface;
 use alekciy\ofd\interfaces\OutletInterface;
+use alekciy\ofd\interfaces\ShiftInterface;
 use alekciy\ofd\providers\yandex\Client;
 use alekciy\ofd\providers\yandex\Credentials;
 use alekciy\ofd\providers\yandex\Model\CashDesk;
+use alekciy\ofd\providers\yandex\Model\OperationShiftReport;
 use alekciy\ofd\providers\yandex\Model\Outlet;
+use alekciy\ofd\providers\yandex\Model\Shift;
 use alekciy\ofd\providers\yandex\Yandex;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\MockHandler;
@@ -79,10 +83,10 @@ class YandexTest extends TestCase
 	 * @test
 	 * @depends testGetOutletList
 	 * @param OutletInterface $outlet
-	 * @return CashDesk
+	 * @return CashDeskInterface
 	 * @throws GuzzleException
 	 */
-	public function testGetCashDeskList(OutletInterface $outlet): CashDesk
+	public function testGetCashDeskList(OutletInterface $outlet): CashDeskInterface
 	{
 		$this->mock->append(new Response(200, [], $this->fixtureList['CashDeskList']));
 		$this->mock->append(new Response(200, [], '[]'));
@@ -143,5 +147,42 @@ class YandexTest extends TestCase
 		$this->assertEquals(587, $cashDesk->companyId);
 
 		return $cashDesk;
+	}
+
+
+	/**
+	 * Проверяет получение списка смен для заданной ККТ $cashDesk.
+	 *
+	 * @test
+	 * @depends testGetCashDeskList
+	 * @param CashDeskInterface $cashDesk
+	 * @return ShiftInterface
+	 * @throws GuzzleException
+	 * @throws ReflectionException
+	 */
+	public function testGetShiftList(CashDeskInterface $cashDesk): ShiftInterface
+	{
+		$this->mock->append(new Response(200, [], $this->fixtureList['ShiftList']));
+		$this->mock->append(new Response(200, [], '[]'));
+
+		/** @var ShiftInterface[] $shiftList */
+		$shiftList = $this->provider->getShiftList($cashDesk);
+		$this->assertCount(1, $shiftList);
+
+		/** @var Shift $shift */
+		$shift = reset($shiftList);
+		$this->assertEquals('4346576876976321', $shift->fnFactoryNumber);
+		$this->assertEquals('4346576876976321', $shift->getFnFactoryNumber());
+		$this->assertEquals(2, $shift->getShiftNumber());
+		$this->assertEquals(2, $shift->shiftNumber);
+		$this->assertEquals('2018-06-15 14:02:00', $shift->openDateTime);
+		$this->assertEquals('2018-06-18 11:22:00', $shift->closeDateTime);
+
+		$this->assertTrue($shift->income instanceof OperationShiftReport);
+		$this->assertTrue($shift->incomeReturn instanceof OperationShiftReport);
+		$this->assertTrue($shift->outcome instanceof OperationShiftReport);
+		$this->assertTrue($shift->outcomeReturn instanceof OperationShiftReport);
+
+		return $shift;
 	}
 }
