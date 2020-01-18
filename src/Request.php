@@ -62,7 +62,7 @@ abstract class Request
 	 * @throws Exception
 	 * @throws InvalidArgumentException
 	 */
-	protected function validate($lang = 'ru')
+	public function validate($lang = 'ru')
 	{
 		Validator::lang($lang);
 		$validator = new Validator(get_object_vars($this));

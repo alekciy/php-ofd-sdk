@@ -110,10 +110,52 @@ class Yandex implements ProviderInterface
 
 	/**
 	 * @inheritDoc
+	 *
+	 * @throws Exception
+	 * @throws GuzzleException
 	 */
 	public function getShiftList(CashDeskInterface $cashDesk = null, DateTime $start = null, DateTime $end = null): array
 	{
-		// TODO: Implement getShiftList() method.
+		$result = [];
+
+		// Задаем время
+		if (!$start instanceof DateTime) {
+			$start = new DateTime('today');
+		}
+		if (!$end instanceof DateTime) {
+			$end = new DateTime('tomorrow');
+		}
+
+		$cashDeskList = $cashDesk instanceof CashDeskInterface
+			? [$cashDesk]
+			: $this->getCashDeskList();
+		$cashDeskIdList = [];
+		foreach ($cashDeskList as $cashDesk) {
+			$cashDeskIdList[] = $cashDesk->id;
+		}
+
+		// Постраничный запрос
+		$responseShiftList = [];
+		$endpoint = new ShiftList([
+			'cashBoxIdList' => $cashDeskIdList,
+			'start'         => $start->format('Y-m-d H:i:s'),
+			'end'           => $end->format('Y-m-d H:i:s'),
+		]);
+		do {
+			$response = $this->client->request($endpoint);
+			if (isset($response['data'])) {
+				foreach ($response['data'] as $record) {
+					$responseShiftList[] = $record;
+				}
+			}
+			++$endpoint->pageNumber;
+		} while (!empty($response));
+
+		// Получаем результат
+		foreach ($responseShiftList as $responseShift) {
+			$result[] = new Shift($responseShift);
+		}
+		return $result;
 	}
 
 	/**

@@ -20,8 +20,28 @@ abstract class BaseModel
 	{
 		$propertyMap = $this->getPropertyInitMap();
 		foreach ($init as $propertyName => $propertyValue) {
+			// Если задано преобразование имени свойства (или трансформация)
 			if (isset($propertyMap[$propertyName])) {
-				$propertyName = $propertyMap[$propertyName];
+				$propertyMapValue = $propertyMap[$propertyName];
+				if (is_array($propertyMapValue)) {
+					// Задаем имя свойства модели
+					if (isset($propertyMapValue[0])) {
+						$propertyName = $propertyMapValue[0];
+					}
+					// Преобразуем значение вызвав заданный метод модели
+					if (isset($propertyMapValue['conv'])) {
+						if (!method_exists($this, $propertyMapValue['conv'])) {
+							throw new Exception(sprintf('В объекте %s отсутствует метод %s(), задайте корректное имя в getPropertyInitMap(): [%s => [conv => МЕТОД]]',
+								get_class($this),
+								$propertyMapValue['conv'],
+								$propertyName
+							));
+						}
+						$propertyValue = $this->{$propertyMapValue['conv']}($propertyValue);
+					}
+				} else {
+					$propertyName = $propertyMap[$propertyName];
+				}
 			}
 
 			if (property_exists($this, $propertyName)) {
@@ -33,11 +53,16 @@ abstract class BaseModel
 				}
 			}
 		}
+		// Проверяем корректность свойств модели
 		$this->validate();
 	}
 
 	/**
 	 * В потомках метод должен возращать карту преобразований имен при инициализации (ключ) и свойств объекта (значение).
+	 * Если значение это массив, то при наличие ключа conv к инициализационному значению будет применена функция заданная
+	 * значением этого ключа. Например: ['totalSum' => ['sum', 'conv'=> 'RubToKop']], значение ключа totalSum из массива
+	 * инициализации будет через вызов метода RubToKop($value), конвертация рублей в копейки, сохранено в свойство sum
+	 * модели.
 	 *
 	 * @return array
 	 */
@@ -67,14 +92,14 @@ abstract class BaseModel
 	abstract protected function getRuleList(): array;
 
 	/**
-	 * Выполнить проверку корректности запроса.
+	 * Выполнить проверку корректности свойств модели.
 	 *
 	 * @param string $lang Язык на котором выводятся сообщения с ошибками валидации.
 	 * @return void
 	 * @throws Exception
 	 * @throws InvalidArgumentException
 	 */
-	protected function validate($lang = 'ru')
+	public function validate($lang = 'ru')
 	{
 		Validator::lang($lang);
 		$validator = new Validator(get_object_vars($this));
