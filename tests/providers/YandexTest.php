@@ -1,11 +1,13 @@
 <?php
 
 use alekciy\ofd\interfaces\CashDeskInterface;
+use alekciy\ofd\interfaces\DocumentInterface;
 use alekciy\ofd\interfaces\OutletInterface;
 use alekciy\ofd\interfaces\ShiftInterface;
 use alekciy\ofd\providers\yandex\Client;
 use alekciy\ofd\providers\yandex\Credentials;
 use alekciy\ofd\providers\yandex\Model\CashDesk;
+use alekciy\ofd\providers\yandex\Model\Document;
 use alekciy\ofd\providers\yandex\Model\OperationShiftReport;
 use alekciy\ofd\providers\yandex\Model\Outlet;
 use alekciy\ofd\providers\yandex\Model\Shift;
@@ -184,5 +186,44 @@ class YandexTest extends TestCase
 		$this->assertTrue($shift->outcomeReturn instanceof OperationShiftReport);
 
 		return $shift;
+	}
+
+	/**
+	 * Проверяем получение списка фискальных документов за смену $shift.
+	 *
+	 * @test
+	 * @depends testGetShiftList
+	 * @param ShiftInterface $shift
+	 * @return DocumentInterface
+	 * @throws GuzzleException
+	 * @throws ReflectionException
+	 */
+	public function testGetDocumentList(ShiftInterface $shift): DocumentInterface
+	{
+		$this->mock->append(new Response(200, [], $this->fixtureList['DocumentList']));
+		$this->mock->append(new Response(200, [], '[]'));
+
+		/** @var DocumentInterface[] $documentList */
+		$documentList = $this->provider->getDocumentList($shift);
+		$this->assertCount(4, $documentList);
+		$this->assertContainsOnlyInstancesOf(DocumentInterface::class, $documentList);
+
+		/** @var Document $document */
+		$document = reset($documentList);
+		$this->assertEquals('2018-07-06 15:33:00', $document->dateTime);
+		$this->assertEquals('0000097587029813', $document->kktRegNumber);
+		$this->assertEquals('2325436457568687', $document->getFnFactoryNumber());
+		$this->assertEquals('2325436457568687', $document->fnFactoryNumber);
+		$this->assertEquals(9, $document->shiftNumber);
+		$this->assertEquals(64, $document->fdNumber);
+		$this->assertEquals('120756789', $document->fpd);
+		$this->assertEquals(7000, $document->totalSum);
+		$this->assertEquals(7000, $document->cashSum);
+		$this->assertEquals(0, $document->prepaidSum);
+		$this->assertEquals(0, $document->creditSum);
+		$this->assertEquals(0, $document->provisionSum);
+		$this->assertEquals(0, $document->electronicSum);
+
+		return $document;
 	}
 }

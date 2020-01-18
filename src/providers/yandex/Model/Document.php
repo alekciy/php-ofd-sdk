@@ -52,7 +52,7 @@ class Document extends BaseModel implements DocumentInterface
 	/** @var string Регистрационный номер */
 	public $kktRegNumber;
 
-	/** @var string Фискальный признак документа (ФПД) */
+	/** @var integer Фискальный признак документа (ФПД) */
 	public $fpd = '';
 
 	// Типы
@@ -78,7 +78,7 @@ class Document extends BaseModel implements DocumentInterface
 	const TAX_USN_INCOME             = 'usn_income';                // упрощенная система налогообложения (УСН), доход
 	const TAX_USN_INCOME_EXPENDITURE = 'usn_income_wo_expenditure'; // упрощенная система налогообложения (УСН), доход-расход
 	const TAX_AGRICULTURAL           = 'esn_agricultural';          // единый сельскохозяйственный (ЕСХН)
-	const TAX_PATENT                 = 'psn';                       // Патент
+	const TAX_PATENT                 = 'psn';                       // патент
 
 	/**
 	 * @inheritDoc
@@ -113,9 +113,9 @@ class Document extends BaseModel implements DocumentInterface
 			'fnFactoryNumber' => ['required', ['lengthMin', 1], ['lengthMax', 16]],
 			'dateTime'        => ['required', ['dateFormat', 'Y-m-d H:i:s']],
 			'fdNumber'        => ['required', 'integer'],
-			'shiftNumber'     => ['required', 'integer', ['min', 1]],
-			'numberInShift'   => ['required', 'integer', ['min', 1]],
-			'fpd'             => ['required', ['lengthMin', 1], ['lengthMax', 10]],
+			'shiftNumber'     => ['required', 'integer', ['min', 0]],
+			'numberInShift'   => ['required', 'integer', ['min', 0]],
+			'fpd'             => ['required', ['regex', '~^[0-9]{9}$~u']],
 			'kktRegNumber'    => ['required', ['lengthMin', 1], ['lengthMax', 16]],
 			'documentType'    => ['required', ['in', [
 				self::TYPE_OPEN,

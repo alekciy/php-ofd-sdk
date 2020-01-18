@@ -7,9 +7,11 @@ use alekciy\ofd\interfaces\OutletInterface;
 use alekciy\ofd\interfaces\ProviderInterface;
 use alekciy\ofd\interfaces\ShiftInterface;
 use alekciy\ofd\providers\yandex\Model\CashDesk;
+use alekciy\ofd\providers\yandex\Model\Document;
 use alekciy\ofd\providers\yandex\Model\Outlet;
 use alekciy\ofd\providers\yandex\Model\Shift;
 use alekciy\ofd\providers\yandex\Request\CashDeskList;
+use alekciy\ofd\providers\yandex\Request\DocumentList;
 use alekciy\ofd\providers\yandex\Request\OutletList;
 use alekciy\ofd\providers\yandex\Request\ShiftList;
 use DateTime;
@@ -147,9 +149,35 @@ class Yandex implements ProviderInterface
 
 	/**
 	 * @inheritDoc
+	 *
+	 * @throws Exception
+	 * @throws GuzzleException
 	 */
 	public function getDocumentList(ShiftInterface $shift = null, DateTime $start = null, DateTime $end = null): array
 	{
-		// TODO: Implement getDocumentList() method.
+		$result = [];
+
+		// Задаем время
+		if (!$start instanceof DateTime) {
+			$start = new DateTime('today');
+		}
+		if (!$end instanceof DateTime) {
+			$end = new DateTime('tomorrow');
+		}
+
+		$shiftList = $shift instanceof ShiftInterface
+			? [$shift]
+			: $this->getShiftList(null, $start, $end);
+		foreach ($shiftList as $shift) {
+			$responseDocumentList = $this->getAllItemList(new DocumentList([
+				'shiftNumber' => $shift->getShiftNumber(),
+				'start'       => $start->format('Y-m-d H:i:s'),
+				'end'         => $end->format('Y-m-d H:i:s'),
+			]));
+			foreach ($responseDocumentList as $responseDocument) {
+				$result[] = new Document($responseDocument);
+			}
+		}
+		return $result;
 	}
 }

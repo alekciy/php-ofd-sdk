@@ -6,12 +6,12 @@ use alekciy\ofd\providers\yandex\Model\Document;
 use alekciy\ofd\providers\yandex\RequestPage;
 
 /**
- * Список смен заданной ККТ.
+ * Список документов.
  */
-class ShiftList extends RequestPage
+class DocumentList extends RequestPage
 {
 	public $method = 'POST';
-	protected $path = '/v1/docs/aggregations/shifts';
+	protected $path = '/v1/docs/aggregations/receipts';
 
 	/** @var string Начало периода */
 	public $start = '';
@@ -31,6 +31,21 @@ class ShiftList extends RequestPage
 	/** @var array Тип фискального документа (ФД) */
 	public $documentTypeList = [];
 
+	/** @var array Тип операции */
+	public $operationList = [];
+
+	/** @var array Тип операции */
+	public $taxList = [];
+
+	/** @var string Фискальный признак документа (ФПД) */
+	public $fpd = '';
+
+	/** @var string Порядковый номер фискального документа */
+	public $fdNumber = '';
+
+	/** @var integer Список смен */
+	public $shiftNumber;
+
 	/**
 	 * @inheritDoc
 	 */
@@ -41,8 +56,11 @@ class ShiftList extends RequestPage
 			'companyIdList'    => ['body' => 'company_ids'],
 			'outletIdList'     => ['body' => 'retail_point_ids'],
 			'documentTypeList' => ['body' => 'document_types'],
-			'start'            => ['body' => 'begin'],
-			'end'              => ['body' => 'end'],
+			'operationList'    => ['body' => 'operation_types'],
+			'taxList'          => ['body' => 'taxation_types'],
+			'shiftNumber'      => ['body' => 'shifts'],
+			'start'            => ['body' => 'date_from'],
+			'end'              => ['body' => 'date_to'],
 		]);
 	}
 
@@ -55,9 +73,23 @@ class ShiftList extends RequestPage
 			'start' => ['required', ['dateFormat', 'Y-m-d H:i:s']],
 			'end'   => ['required', ['dateFormat', 'Y-m-d H:i:s']],
 
-			'cashDeskIdList'   => ['array'],
-			'companyIdList'    => ['array'],
-			'outletIdList'     => ['array'],
+			'cashDeskIdList' => ['array'],
+			'companyIdList'  => ['array'],
+			'outletIdList'   => ['array'],
+			'shiftNumber'    => ['integer', ['min', 1]],
+			'taxList'        => ['array', ['subset', [
+				Document::TAX_AGRICULTURAL,
+				Document::TAX_OSN,
+				Document::TAX_PATENT,
+				Document::TAX_USN_INCOME,
+				Document::TAX_USN_INCOME_EXPENDITURE,
+			]]],
+			'operationList' => ['array', ['subset', [
+				Document::OPERATION_INCOME,
+				Document::OPERATION_INCOME_RETURN,
+				Document::OPERATION_OUTCOME,
+				Document::OPERATION_OUTCOME_RETURN,
+			]]],
 			'documentTypeList' => ['array', ['subset', [
 				Document::TYPE_OPEN,
 				Document::TYPE_CLOSE,
