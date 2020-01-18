@@ -45,7 +45,10 @@ class Yandex implements ProviderInterface
 		$result = [];
 		do {
 			$response = $this->client->request($endpoint);
-			foreach ($response as $record) {
+			$recordList = isset($response['data'])
+				? $response['data']
+				: $response;
+			foreach ($recordList as $record) {
 				$result[] = $record;
 			}
 			++$endpoint->pageNumber;
@@ -129,27 +132,11 @@ class Yandex implements ProviderInterface
 		$cashDeskList = $cashDesk instanceof CashDeskInterface
 			? [$cashDesk]
 			: $this->getCashDeskList();
-		$cashDeskIdList = [];
-		foreach ($cashDeskList as $cashDesk) {
-			$cashDeskIdList[] = $cashDesk->id;
-		}
-
-		// Постраничный запрос
-		$responseShiftList = [];
-		$endpoint = new ShiftList([
-			'cashBoxIdList' => $cashDeskIdList,
+		$responseShiftList = $this->getAllItemList(new ShiftList([
+			'cashBoxIdList' => array_column($cashDeskList, 'id'),
 			'start'         => $start->format('Y-m-d H:i:s'),
 			'end'           => $end->format('Y-m-d H:i:s'),
-		]);
-		do {
-			$response = $this->client->request($endpoint);
-			if (isset($response['data'])) {
-				foreach ($response['data'] as $record) {
-					$responseShiftList[] = $record;
-				}
-			}
-			++$endpoint->pageNumber;
-		} while (!empty($response));
+		]));
 
 		// Получаем результат
 		foreach ($responseShiftList as $responseShift) {

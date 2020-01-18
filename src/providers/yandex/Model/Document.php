@@ -111,7 +111,7 @@ class Document extends BaseModel implements DocumentInterface
 	{
 		return [
 			'fnFactoryNumber' => ['required', ['lengthMin', 1], ['lengthMax', 16]],
-			'dateTime'        => ['required', ['dateFormat', 'Y-m-d\TH:i:s']],
+			'dateTime'        => ['required', ['dateFormat', 'Y-m-d H:i:s']],
 			'fdNumber'        => ['required', 'integer'],
 			'shiftNumber'     => ['required', 'integer', ['min', 1]],
 			'numberInShift'   => ['required', 'integer', ['min', 1]],
