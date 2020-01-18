@@ -66,4 +66,12 @@ class OutletShort extends BaseModel implements OutletInterface
 	{
 		return $this->address;
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function getPropertyInitMap(): array
+	{
+		return [];
+	}
 }

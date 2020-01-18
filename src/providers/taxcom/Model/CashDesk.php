@@ -11,11 +11,22 @@ use alekciy\ofd\providers\taxcom\Status;
  */
 class CashDesk extends BaseModel implements CashDeskInterface
 {
+	/**
+	 * @inheritDoc
+	 */
+	protected function getPropertyInitMap(): array
+	{
+		return [
+			'cashdeskEndDateTime' => 'cashDeskEndDateTime',
+			'cashdeskState' => 'cashDeskState',
+		];
+	}
+
 	/** @var string Оплачена по */
-	public $cashdeskEndDateTime;
+	public $cashDeskEndDateTime;
 
 	/** @var string Состояние  */
-	public $cashdeskState;
+	public $cashDeskState;
 
 	/** @var string Срок действия ФН */
 	public $fnDuration;
@@ -85,7 +96,7 @@ class CashDesk extends BaseModel implements CashDeskInterface
 				Shift::STATUS_OPEN,
 				Shift::STATUS_CLOSE,
 			]]],
-			'cashdeskState' => [['in', [
+			'cashDeskState' => [['in', [
 				self::STATUS_ACTIVE,
 				self::STATUS_EXPIRES,
 				self::STATUS_EXPIRED,
@@ -107,7 +118,7 @@ class CashDesk extends BaseModel implements CashDeskInterface
 				Status::WARNING,
 			]]],
 			'fnRegDateTime' => [['dateFormat', 'H-m-dTH:i:s']],
-			'cashdeskEndDateTime' => [['dateFormat', 'H-m-dTH:i:s']],
+			'cashDeskEndDateTime' => [['dateFormat', 'H-m-dTH:i:s']],
 			'fnEndDateTime' => [['dateFormat', 'H-m-dTH:i:s']],
 			'lastDocumentDateTime' => [['dateFormat', 'H-m-dTH:i:s']],
 		];

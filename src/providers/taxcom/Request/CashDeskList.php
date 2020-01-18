@@ -11,7 +11,7 @@ use alekciy\ofd\providers\taxcom\Status;
 final class CashDeskList extends RequestPage
 {
 	public $method = 'GET';
-	public $path = '/API/v2/KKTList';
+	protected $path = '/API/v2/KKTList';
 
 	/** @var string Идентификатор торговой точки */
 	public $outletId = '';

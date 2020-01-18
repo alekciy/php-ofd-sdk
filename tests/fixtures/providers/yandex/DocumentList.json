@@ -1,0 +1,73 @@
+{
+    "data": [
+        {
+            "operation": "income",
+            "doc_number": 64,
+            "fn": "2325436457568687",
+            "number": 1,
+            "creditSum": 0.0,
+            "real_date": "2018-07-06 15:33:00",
+            "totalSum": 70.0,
+            "prepaidSum": 0.0,
+            "rn": "0000097587029813",
+            "cashTotalSum": 70.0,
+            "provisionSum": 0.0,
+            "shift": 9,
+            "code_name": "receipt",
+            "ecashTotalSum": 0.0,
+            "fiscalSign": 120756789
+        },
+        {
+            "operation": "",
+            "doc_number": 66,
+            "fn": "2325436457568687",
+            "number": 0,
+            "creditSum": 0.0,
+            "real_date": "2018-07-06 16:13:48",
+            "totalSum": 0.0,
+            "prepaidSum": 0.0,
+            "rn": "0000097587029813",
+            "cashTotalSum": 0.0,
+            "provisionSum": 0.0,
+            "shift": 9,
+            "code_name": "openShift",
+            "ecashTotalSum": 0.0,
+            "fiscalSign": 122356789
+        },
+        {
+            "operation": "",
+            "doc_number": 65,
+            "fn": "2325436457568687",
+            "number": 0,
+            "creditSum": 0.0,
+            "real_date": "2018-07-06 15:35:00",
+            "totalSum": 0.0,
+            "prepaidSum": 0.0,
+            "rn": "0000097587029813",
+            "cashTotalSum": 0.0,
+            "provisionSum": 0.0,
+            "shift": 9,
+            "code_name": "closeShift",
+            "ecashTotalSum": 0.0,
+            "fiscalSign": 123456789
+        },
+        {
+            "operation": "",
+            "doc_number": 18,
+            "fn": "3646446464646464",
+            "number": 0,
+            "creditSum": 0.0,
+            "real_date": "2018-06-15 09:30:00",
+            "totalSum": 0.0,
+            "prepaidSum": 0.0,
+            "rn": "4354364364364646",
+            "cashTotalSum": 0.0,
+            "provisionSum": 0.0,
+            "shift": 0,
+            "code_name": "fiscalReportCorrection",
+            "ecashTotalSum": 0.0,
+            "fiscalSign": 123456789
+        }
+    ],
+    "total": 4
+}

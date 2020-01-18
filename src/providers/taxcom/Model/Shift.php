@@ -94,4 +94,12 @@ class Shift extends BaseModel implements ShiftInterface
 	{
 		return $this->closeDateTime;
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function getPropertyInitMap(): array
+	{
+		return [];
+	}
 }

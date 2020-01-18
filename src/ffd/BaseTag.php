@@ -98,7 +98,7 @@ abstract class BaseTag
 			: 'getRuleList()';
 
 		Validator::lang($lang);
-		$validator = new Validator((array) $this);
+		$validator = new Validator(get_object_vars($this));
 		try {
 			$validator->mapFieldsRules($ruleList);
 		} catch (InvalidArgumentException $e) {

@@ -1,0 +1,48 @@
+[
+    {
+        "address_parts": {
+            "flat": "",
+            "area": "",
+            "building": "",
+            "postal_code": "105094",
+            "city": "Москва",
+            "block": "",
+            "region": 77,
+            "street": "ул Новая",
+            "settlement": "",
+            "house": "5"
+        },
+        "company_id": null,
+        "fns": "7705",
+        "id": 728,
+        "client_id": 88,
+        "alias": "Магазин на Каширском",
+        "address": "105094, Москва, ул Новая, д 5",
+        "name": "ТЦ 1",
+        "is_delivery_service": false,
+        "is_internet_payment": false
+    },
+    {
+        "address_parts": {
+            "flat": "",
+            "area": "",
+            "building": "",
+            "postal_code": "119311",
+            "city": "Москва",
+            "block": "5",
+            "region": 77,
+            "street": "ул Строителей",
+            "settlement": "",
+            "house": "4"
+        },
+        "company_id": 587,
+        "fns": "7736",
+        "id": 729,
+        "client_id": 88,
+        "alias": "Магазин на Минском",
+        "address": "119311, Москва, ул Строителей, д 4, к 5",
+        "name": "ТЦ 2",
+        "is_delivery_service": false,
+        "is_internet_payment": true
+    }
+]

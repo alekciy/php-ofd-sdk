@@ -120,7 +120,6 @@ class Taxcom implements ProviderInterface
 	 * @inheritDoc
 	 *
 	 * @throws Exception
-	 * @throws ReflectionException
 	 * @throws GuzzleException
 	 */
 	public function getShiftList(CashDeskInterface $cashDesk = null, DateTime $start = null, DateTime $end = null): array

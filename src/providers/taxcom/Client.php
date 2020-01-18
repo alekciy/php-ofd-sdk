@@ -119,7 +119,7 @@ class Client
 	{
 		$response =  $this->httpClient->request(
 			$endpoint->method,
-			$endpoint->path,
+			$endpoint->getPath(),
 			[
 				'debug' => $endpoint->debug,
 				'exceptions' => false,
@@ -135,7 +135,7 @@ class Client
 		);
 		++self::$requestNumber;
 		if (!empty(self::$bodyStorageDir)) {
-			$fileName = sprintf('%05d_%s', self::$requestNumber, str_replace('/', '_', $endpoint->path) . '.json');
+			$fileName = sprintf('%05d_%s', self::$requestNumber, str_replace('/', '_', $endpoint->getPath()) . '.json');
 			$body = (string) $response->getBody()->getContents();
 			$response->getBody()->rewind();
 			file_put_contents(self::$bodyStorageDir . '/' . $fileName, $body . PHP_EOL);

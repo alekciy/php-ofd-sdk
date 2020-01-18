@@ -11,7 +11,7 @@ use alekciy\ofd\providers\taxcom\RequestPage;
 class DocumentList extends RequestPage
 {
 	public $method = 'GET';
-	public $path = '/API/v2/DocumentList';
+	protected $path = '/API/v2/DocumentList';
 
 	/** @var string Заводской номер ФН */
 	public $fnFactoryNumber = '';

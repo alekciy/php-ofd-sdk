@@ -10,7 +10,7 @@ use alekciy\ofd\providers\taxcom\RequestPage;
 class ShiftList extends RequestPage
 {
 	public $method = 'GET';
-	public $path = '/API/v2/ShiftList';
+	protected $path = '/API/v2/ShiftList';
 
 	/** @var string Заводской номер фискального накопителя (ФН) */
 	public $fnFactoryNumber = '';

@@ -89,4 +89,12 @@ class CashDeskShort extends BaseModel implements CashDeskInterface
 	{
 		return $this->name;
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function getPropertyInitMap(): array
+	{
+		return [];
+	}
 }

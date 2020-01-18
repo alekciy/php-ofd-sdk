@@ -1,10 +1,9 @@
 <?php
 
-namespace alekciy\ofd\providers\taxcom\Model;
+namespace alekciy\ofd\providers\yandex\Model;
 
 use alekciy\ofd\BaseModel;
 use alekciy\ofd\interfaces\OutletInterface;
-use alekciy\ofd\providers\taxcom\Status;
 
 /**
  * Детальная информация по торговой точке
@@ -14,20 +13,17 @@ class Outlet extends BaseModel implements OutletInterface
 	/** @var string Адрес торговой точки */
 	public $address = '';
 
-	/** @var integer Количество ККТ */
-	public $cashDeskCount = 0;
+	/** @var integer Идентификатор торговой точки */
+	public $id = 0;
 
-	/** @var string Код торговой точки */
-	public $code = '';
+	/** @var integer Идентификатор компании */
+	public $companyId = 0;
 
-	/** @var string Идентификатор торговой точки */
-	public $id = '';
+	/** @var integer Идентификатор клиента, зарегистрировавшего компанию в системе */
+	public $clientId = 0;
 
 	/** @var string Название торговой точки */
 	public $name = '';
-
-	/** @var string Признак наличия проблемы */
-	public $problemIndicator = '';
 
 	/**
 	 * @inheritDoc
@@ -35,15 +31,12 @@ class Outlet extends BaseModel implements OutletInterface
 	public function getRuleList(): array
 	{
 		return [
-			'id'   => ['required', ['lengthMax', 36]],
-			'name' => ['required', ['lengthMax', 255]],
+			'id'      => ['required', 'numeric'],
+			'name'    => ['required'],
+			'address' => ['required'],
 
-			'code'             => [['lengthMax', 10]],
-			'problemIndicator' => [['in', [
-				Status::OK,
-				Status::PROBLEM,
-				Status::WARNING,
-			]]],
+			'companyId' => ['numeric'],
+			'clientId'  => ['numeric'],
 		];
 	}
 
@@ -52,7 +45,7 @@ class Outlet extends BaseModel implements OutletInterface
 	 */
 	public function getId(): string
 	{
-		return $this->id;
+		return strval($this->id);
 	}
 
 	/**

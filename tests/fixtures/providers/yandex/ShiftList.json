@@ -1,0 +1,68 @@
+{
+    "data": [
+        {
+            "rn": "3546446467562434",
+            "close": "2018-06-18 11:22:00",
+            "shift": 2,
+            "fn": "4346576876976321",
+            "open": "2018-06-15 14:02:00",
+            "income": {
+                "credit_sum": 0.0,
+                "provision_count": 0,
+                "cashTotal_sum": 140.0,
+                "total_sum": 140.0,
+                "prepaid_count": 0,
+                "credit_count": 0,
+                "ecashTotal_count": 0,
+                "ecashTotal_sum": 0.0,
+                "provision_sum": 0.0,
+                "prepaid_sum": 0.0,
+                "cashTotal_count": 2,
+                "total_count": 2
+            },
+            "outcome": {
+                "credit_sum": 0.0,
+                "provision_count": 0,
+                "cashTotal_sum": 0.0,
+                "total_sum": 0.0,
+                "prepaid_count": 0,
+                "credit_count": 0,
+                "ecashTotal_count": 0,
+                "ecashTotal_sum": 0.0,
+                "provision_sum": 0.0,
+                "prepaid_sum": 0.0,
+                "cashTotal_count": 0,
+                "total_count": 0
+            },
+            "outcome_return": {
+                "credit_sum": 0.0,
+                "provision_count": 0,
+                "cashTotal_sum": 0.0,
+                "total_sum": 0.0,
+                "prepaid_count": 0,
+                "credit_count": 0,
+                "ecashTotal_count": 0,
+                "total_count": 0,
+                "provision_sum": 0.0,
+                "prepaid_sum": 0.0,
+                "cashTotal_count": 0,
+                "ecashTotal_sum": 0.0
+            },
+            "income_return": {
+                "credit_sum": 0.0,
+                "provision_count": 0,
+                "cashTotal_sum": 0.0,
+                "total_sum": 0.0,
+                "prepaid_count": 0,
+                "credit_count": 0,
+                "ecashTotal_count": 0,
+                "ecashTotal_sum": 0.0,
+                "provision_sum": 0.0,
+                "prepaid_sum": 0.0,
+                "cashTotal_count": 0,
+                "total_count": 0
+            }
+        }
+    ],
+    "total": 1
+}
