@@ -1,5 +1,7 @@
 <?php
 
+namespace alekciy\ofd\test\unit;
+
 use alekciy\ofd\interfaces\CashDeskInterface;
 use alekciy\ofd\interfaces\DocumentInterface;
 use alekciy\ofd\interfaces\OutletInterface;

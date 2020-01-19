@@ -97,7 +97,7 @@ class Client
 		if ($response->getStatusCode() != 200) {
 			$code = (integer) $body['apiErrorCode'];
 			throw new Exception(
-				Exception::$codeList[$code] ?? 'Неизвестная ошибка',
+				\alekciy\ofd\providers\taxcom\Exception::$codeList[$code] ?? 'Неизвестная ошибка',
 				$code ?? 0
 			);
 		}

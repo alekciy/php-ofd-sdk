@@ -45,6 +45,8 @@
         }
     },
     "scripts": {
-        "test-unit": "./vendor/bin/phpunit --colors=always"
+        "test-unit": "./vendor/bin/phpunit --colors=always --testsuite unit",
+        "test-integration-taxcom": "./vendor/bin/phpunit --colors=always --testsuite integration --group taxcom",
+        "test-integration-yandex": "./vendor/bin/phpunit --colors=always --testsuite integration --group yandex"
     }
 }
