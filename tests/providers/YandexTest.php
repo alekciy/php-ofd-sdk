@@ -12,6 +12,7 @@ use alekciy\ofd\providers\yandex\Model\OperationShiftReport;
 use alekciy\ofd\providers\yandex\Model\Outlet;
 use alekciy\ofd\providers\yandex\Model\Shift;
 use alekciy\ofd\providers\yandex\Yandex;
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -53,7 +54,6 @@ class YandexTest extends TestCase
 	 *
 	 * @test
 	 * @return OutletInterface
-	 * @throws ReflectionException
 	 * @throws GuzzleException
 	 */
 	public function testGetOutletList(): OutletInterface
@@ -160,7 +160,6 @@ class YandexTest extends TestCase
 	 * @param CashDeskInterface $cashDesk
 	 * @return ShiftInterface
 	 * @throws GuzzleException
-	 * @throws ReflectionException
 	 */
 	public function testGetShiftList(CashDeskInterface $cashDesk): ShiftInterface
 	{
@@ -196,7 +195,6 @@ class YandexTest extends TestCase
 	 * @param ShiftInterface $shift
 	 * @return DocumentInterface
 	 * @throws GuzzleException
-	 * @throws ReflectionException
 	 */
 	public function testGetDocumentList(ShiftInterface $shift): DocumentInterface
 	{
