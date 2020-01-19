@@ -79,7 +79,6 @@ class Taxcom implements ProviderInterface
 	 *
 	 * @return OutletInterface[]
 	 * @throws GuzzleException
-	 * @throws ReflectionException
 	 * @throws Exception
 	 */
 	public function getOutletList(): array
@@ -158,7 +157,6 @@ class Taxcom implements ProviderInterface
 	 * @inheritDoc
 	 *
 	 * @throws Exception
-	 * @throws ReflectionException
 	 * @throws GuzzleException
 	 */
 	public function getDocumentList(ShiftInterface $shift = null, DateTime $start = null, DateTime $end = null): array
@@ -196,7 +194,6 @@ class Taxcom implements ProviderInterface
 	 * @param DocumentInterface $document
 	 * @return Registration|Open|Check|Strict|Close|FnClose|Confirmation|RegistrationChange|State|StrictCorrect
 	 * @throws GuzzleException
-	 * @throws ReflectionException
 	 * @throws Exception
 	 */
 	public function getDocumentTag(DocumentInterface $document): ffdDocument
@@ -213,7 +210,6 @@ class Taxcom implements ProviderInterface
 	 * @param DateTime|null $end
 	 * @return Registration[]|Open[]|Check[]|Strict[]|Close[]|FnClose[]|Confirmation[]|RegistrationChange[]|State[]|StrictCorrect[]
 	 * @throws GuzzleException
-	 * @throws ReflectionException
 	 * @throws Exception
 	 */
 	public function getDocumentTagList($document = null, DateTime $start = null, DateTime $end = null): array

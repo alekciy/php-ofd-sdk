@@ -1,5 +1,7 @@
 <?php
 
+namespace alekciy\ofd\test\unit;
+
 use alekciy\ofd\interfaces\CashDeskInterface;
 use alekciy\ofd\interfaces\DocumentInterface;
 use alekciy\ofd\interfaces\ShiftInterface;
@@ -9,9 +11,9 @@ use alekciy\ofd\providers\taxcom\Model\CashDesk;
 use alekciy\ofd\providers\taxcom\Model\CashDeskShort;
 use alekciy\ofd\providers\taxcom\Model\Document;
 use alekciy\ofd\providers\taxcom\Model\OutletShort;
-use alekciy\ofd\providers\taxcom\Model\ShiftShort;
 use alekciy\ofd\providers\taxcom\Status;
 use alekciy\ofd\providers\taxcom\Taxcom;
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -62,7 +64,6 @@ class TaxcomTest extends TestCase
 	 *
 	 * @test
 	 * @return OutletShort[]
-	 * @throws ReflectionException
 	 * @throws GuzzleException
 	 */
 	public function testGetOutletList(): array
@@ -119,7 +120,6 @@ class TaxcomTest extends TestCase
 	 * @param CashDeskInterface $cashDesk
 	 * @return ShiftInterface
 	 * @throws GuzzleException
-	 * @throws ReflectionException
 	 */
 	public function testGetShiftList(CashDeskInterface $cashDesk): ShiftInterface
 	{
@@ -148,7 +148,6 @@ class TaxcomTest extends TestCase
 	 * @param ShiftInterface $shift
 	 * @return DocumentInterface
 	 * @throws GuzzleException
-	 * @throws ReflectionException
 	 */
 	public function testGetDocumentList(ShiftInterface $shift): DocumentInterface
 	{
@@ -179,7 +178,6 @@ class TaxcomTest extends TestCase
 	 * @depends testGetDocumentList
 	 * @param DocumentInterface $document
 	 * @throws GuzzleException
-	 * @throws ReflectionException
 	 */
 	public function testGetDocumentTag(DocumentInterface $document)
 	{
