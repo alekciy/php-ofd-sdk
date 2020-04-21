@@ -34,9 +34,9 @@ final class Credentials extends \alekciy\ofd\Credentials
 	}
 
 	/**
-	 * @param string $domain Имя домена на котором находится API (api.ofd.yandex.net промышленный).
+	 * @param string $domain            Имя домена на котором находится API (api.ofd.yandex.net промышленный).
 	 * @param string $authenticationKey Аутентификационный ключ.
-	 * @param string $authorizationKey Авторизационный ключ.
+	 * @param string $authorizationKey  Авторизационный ключ.
 	 * @throws Exception
 	 */
 	public function __construct(string $domain, string $authenticationKey, string $authorizationKey)

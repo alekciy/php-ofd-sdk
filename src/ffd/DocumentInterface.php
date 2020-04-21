@@ -38,8 +38,8 @@ interface DocumentInterface
 	 *   значение - значение тега, либо скаляр, либо такой же массив вложенных тегов.
 	 *
 	 * @param string $version Тип документа (self::VERSION_*)
-	 * @param string $format Формат документа (self::FORMAT_*)
-	 * @param array $init Параметры инициализации.
+	 * @param string $format  Формат документа (self::FORMAT_*)
+	 * @param array $init     Параметры инициализации.
 	 */
 	public function __construct(string $version, string $format, array &$init);
 }

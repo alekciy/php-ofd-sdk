@@ -2,11 +2,13 @@
 
 namespace alekciy\ofd\interfaces;
 
-use alekciy\ofd\providers\taxcom\Model\CashDesk;
 use alekciy\ofd\providers\taxcom\Model\Document;
-use alekciy\ofd\providers\taxcom\Model\Shift;
 use DateTime;
 
+/**
+ * Унифицированный интерфейс работы с ОФД. Призван обеспечить единообразие доступа вне зависимости
+ * от используемого ОФД.
+ */
 interface ProviderInterface
 {
 
