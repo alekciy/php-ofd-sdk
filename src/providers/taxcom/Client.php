@@ -5,7 +5,6 @@ namespace alekciy\ofd\providers\taxcom;
 use alekciy\ofd\Json;
 use alekciy\ofd\providers\taxcom\Request\Login;
 use alekciy\ofd\Request;
-use Exception;
 use GuzzleHttp\Client as httpClient;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -38,7 +37,6 @@ class Client
 	 * @param string $agreementNumber  Номер договора.
 	 * @param string $sessionToken     Сессионный токен доступа.
 	 * @param array $clientConfig      Дополнительную настройки для Guzzle клиента.
-	 * @throws Exception
 	 */
 	public function __construct(Credentials $credentials, string $agreementNumber = '', string $sessionToken = '', array $clientConfig = [])
 	{
@@ -97,7 +95,7 @@ class Client
 		if ($response->getStatusCode() != 200) {
 			$code = (integer) $body['apiErrorCode'];
 			throw new Exception(
-				\alekciy\ofd\providers\taxcom\Exception::$codeList[$code] ?? 'Неизвестная ошибка',
+				Exception::$codeList[$code] ?? 'Неизвестная ошибка',
 				$code ?? 0
 			);
 		}

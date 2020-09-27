@@ -45,7 +45,7 @@ interface ProviderInterface
 	 * @param ShiftInterface|null $shift
 	 * @param DateTime|null $start
 	 * @param DateTime|null $end
-	 * @return Document[]
+	 * @return DocumentInterface[]
 	 */
 	public function getDocumentList(ShiftInterface $shift = null, DateTime $start = null, DateTime $end = null): array;
 }

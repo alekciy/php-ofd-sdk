@@ -5,6 +5,9 @@
 Основная цель - облегчить интеграцию проекта при работе с разными API операторов. Например при синхронизации данных
 о выбитых на кассе чеков и данных ушедших в налоговую.
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alekciy/php-ofd-sdk/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alekciy/php-ofd-sdk/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/alekciy/php-ofd-sdk/badges/build.png?b=master)](https://scrutinizer-ci.com/g/alekciy/php-ofd-sdk/build-status/master)
+
 ## Поддерживаемые ОФД
  * [ООО «Такском»](https://taxcom.ru/ofd/)
  * [ООО «Яндекс.ОФД»](https://ofd.yandex.ru/)

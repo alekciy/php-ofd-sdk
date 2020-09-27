@@ -26,14 +26,11 @@ use alekciy\ofd\providers\taxcom\Model\ShiftShort;
 use alekciy\ofd\providers\taxcom\Request\DocumentInfo;
 use GuzzleHttp\Exception\GuzzleException;
 use DateTime;
-use alekciy\ofd\providers\taxcom\Model\CashDesk;
 use alekciy\ofd\providers\taxcom\Request\DocumentList;
 use alekciy\ofd\providers\taxcom\Request\CashDeskList;
 use alekciy\ofd\providers\taxcom\Request\OutletList;
 use alekciy\ofd\providers\taxcom\Request\ShiftList;
-use Exception;
 use DateTimeZone;
-use ReflectionException;
 
 /**
  * @see https://lk-ofd.taxcom.ru/ApiHelp/
