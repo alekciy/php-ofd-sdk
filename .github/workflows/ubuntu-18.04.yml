@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        php-version: [7.0, 7.1, 7.2, 8.0, 8.1]
+        php-version: [7.1, 7.2, 8.0, 8.1]
     steps:
     - uses: actions/checkout@v1
 
@@ -15,7 +15,7 @@ jobs:
       run: composer validate
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer install --prefer-dist --no-progress --no-dev
 
     - name: Run test
       run: composer test-unit
