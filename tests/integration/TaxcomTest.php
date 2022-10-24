@@ -28,7 +28,7 @@ class TaxcomTest extends TestCase
 	 * @inheritDoc
 	 * @throws Exception
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		$credentialFile = realpath( __DIR__ . '/../credentials/taxcom.php');
 		if (!is_readable($credentialFile)) {

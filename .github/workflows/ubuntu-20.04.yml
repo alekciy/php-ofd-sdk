@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        php-version: [7.1, 7.2, 8.0, 8.1]
+        php-version: [7.3, 7.4, 8.0, 8.1]
     steps:
     - uses: actions/checkout@v1
 

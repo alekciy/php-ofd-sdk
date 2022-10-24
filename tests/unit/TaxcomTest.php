@@ -39,7 +39,7 @@ class TaxcomTest extends TestCase
 	 *
 	 * @throws Exception
 	 */
-	public function setUp()
+	public function setUp(): void
 	{
 		$this->mock = new MockHandler();
 		$handlerStack = HandlerStack::create($this->mock);
