@@ -38,12 +38,12 @@ class TaxcomTest extends TestCase
 		if (!isset($prod['credentials'])
 			|| !$prod['credentials'] instanceof Credentials
 		) {
-			throw new Exception("Файл $credentialFile должен возращать объект ['credentials' => " . Credentials::class . ', ...]');
+			throw new Exception("Файл $credentialFile должен возвращать объект ['credentials' => " . Credentials::class . ', ...]');
 		}
 		if (!isset($prod['agreementNumber'])
 			|| !is_string($prod['agreementNumber'])
 		) {
-			throw new Exception("Файл $credentialFile должен возращать строку ['agreementNumber' => '...', ...]");
+			throw new Exception("Файл $credentialFile должен возвращать строку ['agreementNumber' => '...', ...]");
 		}
 		$client = new Client($prod['credentials'], $prod['agreementNumber']);
 		$this->provider = new Taxcom($client);
