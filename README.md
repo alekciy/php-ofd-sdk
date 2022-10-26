@@ -82,8 +82,8 @@ $shiftList = $taxcom->getShiftList($cashDesk);
 
 ### Интеграционные тесты
 Для запуска тестов нужно:
- 1. скопировать файл нужного _ОФД_ `tests/credentials/ОФД.example.php` в файл `tests/credentials/ОФД.example.php`;
- 1. вписать требуемые реквизиты доступа в `tests/credentials/ОФД.example.php`;
+ 1. скопировать файл нужного _ОФД_ `tests/credentials/ОФД.example.php` в файл `tests/credentials/ОФД.php`;
+ 1. вписать требуемые реквизиты доступа в `tests/credentials/ОФД.php`;
  1. выполнить команду `composer test-integration-ОФД`.
 
 
